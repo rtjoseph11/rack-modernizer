@@ -7,9 +7,9 @@ require 'rack/test'
 $: << File.dirname(__FILE__) + '/../lib'
 require 'rack-modernizer'
 
-describe Rack::RequestModernizer do
+describe Rack::Modernizer do
   include Rack::Test::Methods
-  Rack::RequestModernizer.configure do |env, body|
+  Rack::Modernizer.configure do |env, body|
     version {@body['version']}
     modernize '0.0.1' do
       add('foo') {'bar'}
@@ -27,7 +27,7 @@ describe Rack::RequestModernizer do
     }
   end
  
-  let(:app) { Rack::RequestModernizer.new(inner_app) }
+  let(:app) { Rack::Modernizer.new(inner_app) }
   
   it "makes no change to gets" do
     get "/?headers='1'", {}, 'rack.input' => StringIO.new(JSON.dump({"version" => '0.0.1'}))

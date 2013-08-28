@@ -1,10 +1,9 @@
 require "rack-modernizer/version"
 require 'modernizer'
 require 'json'
-puts Modernize::Modernizer.is_a?(Class)
+
 module Rack
-  puts 'in the rack module'
-  class RequestModernizer
+  class Modernizer
     def self.configure(&block)
       @@modernizer = ::Modernize::Modernizer.new(&block)
       self
@@ -28,5 +27,4 @@ module Rack
       @app.call(env)
     end
   end
-  puts 'rack-modernizer defined'
 end

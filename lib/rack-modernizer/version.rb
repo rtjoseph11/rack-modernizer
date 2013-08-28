@@ -1,5 +1,5 @@
 module Rack
-  module Modernizer
+  class Modernizer
     VERSION = "0.0.1"
   end
 end
