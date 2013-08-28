@@ -1,10 +1,12 @@
-require "rack/modernizer/version"
+require "rack-modernizer/version"
 require 'modernizer'
 require 'json'
+puts Modernize::Modernizer.is_a?(Class)
 module Rack
-  class Modernizer
+  puts 'in the rack module'
+  class RequestModernizer
     def self.configure(&block)
-      @@modernizer = Modernize::Modernizer.new(&block)
+      @@modernizer = ::Modernize::Modernizer.new(&block)
       self
     end
 
@@ -18,12 +20,13 @@ module Rack
 
       begin
         body = JSON.parse(env['rack.input'].read)
-        env['rack.input'] = StringIO.new(@@modernize.translate(env, body).to_json)
+        env['rack.input'] = StringIO.new(@@modernizer.translate(env, body).to_json)
       rescue JSON::ParserError
-        return [400, {'Content-Type' => 'application/json'}, [{status: 400, message: 'Invalid JSON in headers query string param'}.to_json]]
+        return [400, {'Content-Type' => 'application/json'}, [{status: 400, message: 'Invalid JSON in body'}.to_json]]
       end
 
       @app.call(env)
     end
   end
+  puts 'rack-modernizer defined'
 end
