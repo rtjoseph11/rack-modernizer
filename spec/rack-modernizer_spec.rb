@@ -10,15 +10,6 @@ require 'rack-modernizer'
 
 describe Rack::Modernizer do
   include Rack::Test::Methods
-  @modernizer = Modernize::Modernizer.new do
-    version {@hash['version']}
-    modernize '0.0.1' do
-      add('foo') {'bar'}
-    end
-    modernize '0.0.3' do
-      compute('hello') {|string| string + '!' if string}
-    end
-  end
   let(:inner_app) do
     lambda { |env|
       new_env = env.dup
@@ -27,7 +18,18 @@ describe Rack::Modernizer do
     }
   end
  
-  let(:app) { Rack::Modernizer.new(inner_app, @modernizer) }
+  let(:app) do
+    modernizer = Modernize::Modernizer.new do
+      version {@hash['version']}
+      modernize '0.0.1' do
+        add('foo') {'bar'}
+      end
+      modernize '0.0.3' do
+        compute('hello') {|string| string + '!'}
+      end
+    end
+    Rack::Modernizer.new(inner_app, modernizer)
+  end
   
   it 'makes changes to gets' do
     get '/?headers=1', {}, 'rack.input' => StringIO.new(JSON.dump({'version' => '0.0.1'}))
