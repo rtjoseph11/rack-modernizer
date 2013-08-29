@@ -22,7 +22,6 @@ describe Rack::Modernizer do
     lambda { |env|
       new_env = env.dup
       body = new_env['rack.input'].read
-      headers = env.select {|k,v| k.start_with? 'HTTP_'}
       [200, {'Content-Type' => 'application/json'}, body]
     }
   end
