@@ -17,8 +17,27 @@ Or install it yourself as:
     $ gem install rack-modernizer
 
 ## Usage
+in config/modernizations
 
-TODO: Write usage instructions here
+```ruby
+  require 'modernizer'
+  module Config
+    Modernizations = Modernize::Modernizer.new do
+      version {# a block to determine the version}
+      modernize 'some version' do
+        # things to do to the version
+      end
+    end
+  end
+```
+
+in the config.ru
+```ruby
+  require 'config/modernizations'
+  require 'rack-modernizer'
+
+  use Rack::Modernizer, Config::Modernizations
+```
 
 ## Contributing
 
