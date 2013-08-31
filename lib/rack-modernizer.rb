@@ -1,4 +1,4 @@
-require "rack-modernizer/version"
+require 'rack-modernizer/version'
 require 'json'
 
 module Rack
