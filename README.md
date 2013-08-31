@@ -1,6 +1,6 @@
 # Rack::Modernizer
 
-TODO: Write a gem description
+rack middleware making use of the modernizer library
 
 ## Installation
 
