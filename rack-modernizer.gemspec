@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['tucker@chartboost.com']
   spec.description   = %q{modernizers a body based on a rack env and set of modernizations}
   spec.summary       = %q{rack middleware which uses modernizer gem}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/rtjoseph11/modernizer/'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'json'
+  spec.add_dependency 'modernizer'
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rack'
